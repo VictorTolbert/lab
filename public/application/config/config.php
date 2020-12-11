@@ -1,7 +1,27 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-$config['base_url'] = 'https://m.swats.com';
+$allowed_domains = array(
+    'promiserves-lab.test',
+    'promiseserves-lab.test',
+    'promiserves-labs.test',
+    'promiseserves-labs.test'
+);
+$default_domain  = 'lab.test';
+
+if (in_array($_SERVER['HTTP_HOST'], $allowed_domains, true)) {
+    $domain = $_SERVER['HTTP_HOST'];
+} else {
+    $domain = $default_domain;
+}
+
+if (! empty($_SERVER['HTTPS'])) {
+    $config['base_url'] = 'https://'.$domain;
+} else {
+    $config['base_url'] = 'http://'.$domain;
+}
+
+
 $config['index_page'] = '';
 $config['uri_protocol']	= 'REQUEST_URI';
 $config['url_suffix'] = '';
@@ -9,7 +29,8 @@ $config['language']	= 'english';
 $config['charset'] = 'UTF-8';
 $config['enable_hooks'] = false;
 $config['subclass_prefix'] = 'MY_';
-$config['composer_autoload'] = false;
+// $config['composer_autoload'] = false;
+$config['composer_autoload'] = FCPATH . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 $config['enable_query_strings'] = false;
 $config['controller_trigger'] = 'c';
@@ -27,7 +48,7 @@ $config['encryption_key'] = '';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = null;
+$config['sess_save_path'] = sys_get_temp_dir();
 $config['sess_match_ip'] = false;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = false;
@@ -45,3 +66,34 @@ $config['csrf_exclude_uris'] = array();
 $config['compress_output'] = false;
 $config['time_reference'] = 'local';
 $config['proxy_ips'] = '';
+
+// Site Config
+$config['site_name'] = '';
+$congig['site_primary_color'] = '#F00';
+$config['site_code'] = 'ps';
+$config['site_codename'] = 'Frontier';
+$config['site_description'] = 'Equipping churches to serve stronger + longer';
+$config['site_affiliates'] = array(
+    'lab',
+    'ps',
+    'sps',
+    'ema',
+);
+$config['site_keywords'] = array(
+    'JavaScript',
+    'CSS',
+    'HTML',
+    'Design Systems',
+    'PHP',
+    'Laravel',
+    'Ruby',
+    'Python',
+    'Shell',
+    'User Interface Engineering',
+    'Frontend',
+    'Frameworks',
+    'Vue.js',
+    'React',
+    'Nuxt',
+    'Tailwind',
+);

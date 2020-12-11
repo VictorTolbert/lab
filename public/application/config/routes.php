@@ -38,6 +38,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 // $route['resources']                          = 'resources/index';
 // $route['resources/create']                   = 'resources/create';
 
+$route['items']                   = "items/index";
+$route['items/(:num)']            = "items/show/$1";
+$route['items/create']['post']    = "items/store";
+$route['items/(:any)/edit']       = "items/edit/$1";
+$route['items/(:any)']['put']     = "items/update/$1";
+$route['items/(:any)']['delete']  = "items/delete/$1";
+
 $route['default_controller']                 = 'pages/show';
 $route['(:any)']                             = 'pages/show/$1';
 

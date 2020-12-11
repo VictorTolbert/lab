@@ -11,8 +11,11 @@ class Pages extends CI_Controller
 
         $data['title'] = ucfirst($page);
 
-        $this->load->view('layouts/site_header');
-        $this->load->view('layouts/site_navbar');
+        if (strpos($page, 'home') === false) {
+            $this->load->view('layouts/site_header');
+            $this->load->view('layouts/site_navbar');
+        }
+
         $this->load->view('pages/' . $page, $data);
         $this->load->view('layouts/site_footer');
     }

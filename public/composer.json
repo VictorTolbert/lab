@@ -1,0 +1,6 @@
+{
+	"name": "victortolbert/lab",
+	"require": {
+		"vlucas/phpdotenv": "^5.2"
+	}
+}

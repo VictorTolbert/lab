@@ -5,6 +5,8 @@ class Post_model extends CI_Model
     public function __construct()
     {
         $this->load->database();
+
+        // foreach ($query->result() as $row)
     }
 
     public function get_posts($slug = false, $limit = false, $offset = false)
