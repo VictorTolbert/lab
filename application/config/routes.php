@@ -24,11 +24,11 @@ $route['organizations']        = 'organizations/index';
 $route['dashboard']  =  'dashboard/show';
 
 //
-$route['events/index']  = 'events/index';
-$route['events/create'] = 'events/create';
-$route['events/update'] = 'events/update';
-$route['events/(:any)'] = 'events/show/$1';
-$route['events']        = 'events/index';
+// $route['events/index']  = 'events/index';
+// $route['events/create'] = 'events/create';
+// $route['events/update'] = 'events/update';
+// $route['events/(:any)'] = 'events/show/$1';
+// $route['events']        = 'events/index';
 
 //
 // $route['podcasts']                  = 'podcasts/index';
@@ -73,8 +73,8 @@ $route['reports/(:any)'] = 'reports/show/$1';
 $route['reports']        = 'reports/index';
 
 //
-$route['resources']        = 'resources/index';
-$route['resources/create'] = 'resources/create';
+// $route['resources']        = 'resources/index';
+// $route['resources/create'] = 'resources/create';
 
 //
 // $route['subscriptions']                 = 'subscriptions/store';
