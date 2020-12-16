@@ -1,0 +1,44 @@
+{
+  "name": "@victortolbert/lab",
+  "description": "My sandbox for exploring code and markup",
+  "version": "0.1.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "build": "postcss -o assets/css/application.css assets/css/tailwind.css",
+    "prettier": "prettier",
+    "test:e2e": "cypress open"
+  },
+  "dependencies": {
+    "@fullcalendar/core": "^5.4.0",
+    "@fullcalendar/daygrid": "^5.4.0",
+    "@headlessui/vue": "^0.2.0",
+    "@tailwindcss/aspect-ratio": "^0.2.0",
+    "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/typography": "^0.3.1",
+    "@yaireo/tagify": "^3.21.5",
+    "autoprefixer": "^10.1.0",
+    "datatables.net": "^1.10.22",
+    "datatables.net-buttons": "^1.6.5",
+    "datatables.net-fixedheader": "^3.1.7",
+    "datatables.net-keytable": "^2.5.3",
+    "datatables.net-responsive": "^2.2.6",
+    "datatables.net-scroller": "^2.0.3",
+    "filepond": "^4.25.1",
+    "fullcalendar": "^5.4.0",
+    "jspdf": "^2.2.0",
+    "litepicker": "^1.5.7",
+    "muuri": "^0.9.3",
+    "quill": "1.3.7",
+    "tailwindcss": "^2.0.2",
+    "vue": "^3.0.4",
+    "vuex": "^4.0.0-rc.2"
+  },
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.16.1",
+    "cypress": "^6.1.0",
+    "postcss": "^8.2.1",
+    "postcss-cli": "^8.3.1",
+    "prettier": "^2.2.1"
+  }
+}
