@@ -35,14 +35,14 @@
 
 				<p>No relevant upcoming items in the next 30 days</p>
 
-				<form>
+				<!-- <form>
 					<input id="x" value="Editor content goes here" class="trix-content" type="hidden" name="content">
 
 					<trix-editor input="x"></trix-editor>
 
 					<div class="trix-content">Stored content here</div>
 
-				</form>
+				</form> -->
 
 			</div>
 		</div>
@@ -51,7 +51,6 @@
 		<div class="overflow-hidden bg-white divide-y divide-gray-200 rounded-lg shadow">
 			<div class="px-4 py-5 sm:p-6">
 				<h3>Cases Items</h3>
-
 				<div>
 					<button type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded text-primary-700 bg-primary-100 hover:bg-primary-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
 						<svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +59,6 @@
 						Actions
 					</button>
 				</div>
-
 			</div>
 		</div>
 
