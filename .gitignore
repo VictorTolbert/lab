@@ -28,3 +28,4 @@ vendor/
 .env
 .eslintcache
 .php_cs.cache
+yarn-error.log

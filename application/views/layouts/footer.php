@@ -73,6 +73,10 @@
   </div>
 </div>
 
+<!-- Local only-->
+<script src="http://localhost:35729/livereload.js"></script>
+<!-- /Local only-->
+
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>

@@ -9,6 +9,12 @@ class Pages extends CI_Controller
             show_404();
         }
 
+
+
+        // $hash = md5(implode('.', $request->only(['html', 'css', 'config', 'version'])));
+        // array_merge()
+
+
         // $raw = '22. 11. 1968';
         // $start = DateTime::createFromFormat('d. m. Y', $raw);
         // d($start->format('Y-m-d'));
@@ -22,6 +28,7 @@ class Pages extends CI_Controller
         $data['keywords'] = $this->config->item('site_keywords');
 
         // $this->load->view('layouts/hello_bar');
+        $this->load->view('layouts/developer_toolbar');
         $this->load->view('layouts/header');
         $this->load->view('layouts/nav');
         $this->load->view('pages/' . $page, $data);

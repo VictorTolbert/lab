@@ -29,9 +29,9 @@ class Dashboard extends CI_Controller
 
         // d(in_array($role, $staff_roles));
 
-        $this->load->view('layouts/header');
-        $this->load->view('layouts/nav');
+        // $this->load->view('layouts/dashboard_header');
+        // $this->load->view('layouts/nav');
         $this->load->view('dashboard', $data);
-        $this->load->view('layouts/footer');
+        // $this->load->view('layouts/footer');
     }
 }
