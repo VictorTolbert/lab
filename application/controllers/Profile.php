@@ -8,6 +8,7 @@ class Profile extends CI_Controller
         $data['title'] = 'My Profile';
 
         $this->load->view('layouts/header');
+        $this->load->view('layouts/developer_toolbar');
         $this->load->view('layouts/nav');
         $this->load->view('profile', $data);
         $this->load->view('layouts/footer');

@@ -1,19 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
-
+defined('BASEPATH') or exit('No direct script access allowed');
 class Podcast_episodes extends CI_Controller
 {
-    public function index($id)
+    public function index($id = null)
     {
-        // $podcast = Podcast::with('episodes')->findOrFail($id);
+        $data['id'] = $id;
+        $data['podcast']['id'] = $id;
+        $data['podcast']['image_url'] = 'assets/img/podcasts/art-of-product.jpeg';
+        $data['podcast']['episodes'] = [];
 
-        // abort_unless($podcast->isVisibleTo(Auth::user()), 404);
-
-        // return view('podcast-episodes.index', [
-        //     'podcast' => $podcast,
-        // ]);
+        $this->load->view('layouts/header');
+        $this->load->view('layouts/developer_toolbar');
+        $this->load->view('layouts/nav');
+        $this->load->view('podcast_episodes/index', $data);
+        $this->load->view('layouts/footer');
     }
+
 
     public function create($id)
     {

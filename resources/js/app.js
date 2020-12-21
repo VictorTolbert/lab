@@ -1,7 +1,2 @@
-import Vue from 'vue';
-import Alert from './Alert.vue';
-
-new Vue({
-    el: '#app',
-    components: { Alert }
-});
+import * as React from 'react'
+const [count, setCount] = React.useState(initialCount)

@@ -28,10 +28,10 @@ class Pages extends CI_Controller
         $data['keywords'] = $this->config->item('site_keywords');
 
         // $this->load->view('layouts/hello_bar');
-        $this->load->view('layouts/developer_toolbar');
         $this->load->view('layouts/header');
+        $this->load->view('layouts/developer_toolbar');
         $this->load->view('layouts/nav');
         $this->load->view('pages/' . $page, $data);
-        // $this->load->view('layouts/footer');
+        $this->load->view('layouts/footer');
     }
 }

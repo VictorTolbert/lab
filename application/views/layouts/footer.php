@@ -73,68 +73,71 @@
   </div>
 </div>
 
+
+
 <!-- Local only-->
-<script src="http://localhost:35729/livereload.js"></script>
+<!-- <script src="http://localhost:35729/livereload.js"></script> -->
 <!-- /Local only-->
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script> -->
+<!-- <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> -->
 
 <!-- Filepond -->
-<script src="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<!-- <script src="https://unpkg.com/filepond-plugin-file-poster/dist/filepond-plugin-file-poster.js"></script> -->
+<!-- <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script> -->
+<!-- <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script> -->
+<!-- <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script> -->
+<!-- <script src="https://unpkg.com/filepond/dist/filepond.js"></script> -->
 
 <!-- Muuri -->
-<script src="https://cdn.jsdelivr.net/npm/muuri@0.9.0/dist/muuri.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/muuri@0.9.0/dist/muuri.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/web-animations-js@2.3.2/web-animations.min.js"></script> -->
 
 <!-- Tagify -->
-<script src="https://unpkg.com/@yaireo/tagify"></script>
-<script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script>
+<!-- <script src="https://unpkg.com/@yaireo/tagify"></script> -->
+<!-- <script src="https://unpkg.com/@yaireo/tagify@3.1.0/dist/tagify.polyfills.min.js"></script> -->
 
 <!-- Litepicker -->
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script>
+<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/litepicker/dist/js/main.js"></script> -->
 
 <!-- Vue.js -->
-<script src="https://unpkg.com/vue@next"></script>
+<!-- <script src="https://unpkg.com/vue@next"></script> -->
+<script src="<?= base_url('assets/js/main.js') ?>"></script>
 
 <script>
 	// CKEDITOR.replace('editor-1');
 
-	document.addEventListener('DOMContentLoaded', function() {
-		var calendarEl = document.getElementById('calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-			initialView: 'dayGridMonth'
-		});
+	// document.addEventListener('DOMContentLoaded', function() {
+	// 	var calendarEl = document.getElementById('calendar');
+	// 	var calendar = new FullCalendar.Calendar(calendarEl, {
+	// 		initialView: 'dayGridMonth'
+	// 	});
 
-		calendar.render();
-	});
+	// 	calendar.render();
+	// });
 
 
-	$(document).ready( function () {
-		$('#example-table').DataTable();
-	});
+	// $(document).ready( function () {
+	// 	$('#example-table').DataTable();
+	// });
 
-	const Counter = {
-		data() {
-			return {
-				counter: 0
-			}
-		},
-		mounted() {
-			setInterval(() => {
-				this.counter++
-			}, 1000)
-		}
-	}
-	Vue.createApp(Counter).mount('#counter')
+	// const Counter = {
+	// 	data() {
+	// 		return {
+	// 			counter: 0
+	// 		}
+	// 	},
+	// 	mounted() {
+	// 		setInterval(() => {
+	// 			this.counter++
+	// 		}, 1000)
+	// 	}
+	// }
+	// Vue.createApp(Counter).mount('#counter')
 
-	var element = document.querySelector("trix-editor")
-	element.editor  // is a Trix.Editor instance
+	// var element = document.querySelector("trix-editor")
+	// element.editor  // is a Trix.Editor instance
 
 	// window.VueUse
 </script>

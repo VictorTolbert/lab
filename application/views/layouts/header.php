@@ -25,8 +25,8 @@
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Work+Sans:wght@700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo base_url('assets/css/application.css') ?>">
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/style.css') ?>">
 
+	<link href="<?= base_url('assets/css/tailwind.css') ?>" rel="stylesheet">
 	<style>
 		:root {
 			--color-primary: #95ba3d;

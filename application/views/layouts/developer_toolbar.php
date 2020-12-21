@@ -3,7 +3,8 @@
 >
 	<b>Developer Toolbar</b>
 
-	<div class="flex space-x-3">
+	<div class="flex items-center space-x-3">
+		<b>Preview</b>
 		<a
 		href="https://app.vticonsulting.com?ref=developer-toolbar"
 		target="_app"

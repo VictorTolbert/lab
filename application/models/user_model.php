@@ -55,4 +55,29 @@ class User_model extends CI_Model
             return false;
         }
     }
+
+    public function podcasts()
+    {
+        // return $this->hasMany(Podcast::class);
+    }
+
+    public function subscribed_podcasts()
+    {
+        // return $this->belongsToMany(Podcast::class, 'subscriptions')->withTimestamps();
+    }
+
+    public function subscriptions()
+    {
+        // return $this->hasMany(Subscription::class);
+    }
+
+    public function subscribes_to($podcast)
+    {
+        // return $this->subscribedPodcasts()->where($podcast->getQualifiedKeyName(), $podcast->getKey())->count() > 0;
+    }
+
+    public function subscription_to($podcast)
+    {
+        // return $this->subscriptions()->where('podcast_id', $podcast->id)->first();
+    }
 }

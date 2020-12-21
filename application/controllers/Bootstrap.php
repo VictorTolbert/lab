@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Bootstrap extends CI_Controller
 {
-	public function show($page = 'home')
+    public function show($page = 'home')
     {
         if (! file_exists(APPPATH . 'views/bootstrap/pages/' . $page . '.php')) {
             show_404();

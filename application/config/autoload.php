@@ -133,14 +133,17 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array(
-    // 'category_model',
-    // 'component_model',
-    // 'comment_model',
-    // 'event_model',
-    // 'organization_model',
-    // 'post_model',
+    'category_model',
+    'component_model',
+    'comment_model',
+    'event_model',
+    'organization_model',
+    'post_model',
     // 'property_model',
-    // 'resource_model',
-    // 'user_model',
-    // 'person_model',
+    'resource_model',
+    'user_model',
+    'person_model',
+    'team',
+    'episode',
+    'podcast',
 );

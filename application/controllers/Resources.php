@@ -21,6 +21,7 @@ class Resources extends CI_Controller
         $data['resources'] = $this->resource_model->get_resources(false, $config['per_page'], $offset);
 
         $this->load->view('layouts/header');
+        $this->load->view('layouts/developer_toolbar');
         $this->load->view('layouts/nav');
         $this->load->view('resources/index', $data);
         $this->load->view('layouts/footer');
