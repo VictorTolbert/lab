@@ -1,10 +1,22 @@
 <?php
 
-class Category_model extends CI_Model
+class Category_model extends MY_Model
 {
+	public $_table = 'categories';
+
     public function __construct()
     {
-        $this->load->database();
+
+		// $this->has_many['posts'] = 'Post_model';
+		// $this->load->database();
+		// parent::__construct();
+
+		$this->table = 'categories';
+		$this->primary_key = 'id';
+		// $this->has_one['post'] = 'Post_model';
+		$this->has_many['posts'] = 'Post_model';
+
+		parent::__construct();
     }
 
     public function get_categories()

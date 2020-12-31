@@ -1,6 +1,20 @@
 {
 	"name": "victortolbert/lab",
+	"description": "lab",
 	"require": {
-		"vlucas/phpdotenv": "^5.2"
+		"aws/aws-sdk-php": "3.*",
+		"chriskacerguis/codeigniter-restserver": "^3.1",
+		"filp/whoops": "^2.9",
+		"gumlet/php-image-resize": "1.9.*",
+		"lonnieezell/codeigniter-forensics": "dev-master",
+		"shuchkin/simplexlsx": "^0.8.19",
+		"sunra/php-simple-html-dom-parser": "1.5.2",
+		"vlucas/phpdotenv": "^5.2",
+		"voku/portable-utf8": "^5.4",
+		"voku/simple_html_dom": "^4.7"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*",
+		"mockery/mockery": ">=0.7.2"
 	}
 }

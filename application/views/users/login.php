@@ -1,4 +1,4 @@
-<main class="flex-1 container p-8">
+<main class="container flex-1 p-8">
 	<?php echo form_open('users/login'); ?>
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">

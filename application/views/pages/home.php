@@ -59,6 +59,543 @@
 						Actions
 					</button>
 				</div>
+
+				<!-- Form Example -->
+				<form class="w-full">
+					<div class="flex flex-wrap mb-2 -mx-3">
+						<div class="w-full px-3 mb-6 md:w-1/4 md:mb-0">
+							<input class="block w-full px-4 py-3 leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="query" name="query" value="" type="text" placeholder="Search Term">
+						</div>
+						<div class="w-full px-3 mb-6 md:w-1/4 md:mb-0">
+							<div class="relative">
+								<select class="block w-full px-4 py-3 pr-8 font-sans leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="conference" name="conference">
+									<option value="">-- Select Conference --</option>
+									<option value="con">
+										!!Con
+									</option>
+									<option value="alterconf">
+										AlterConf
+									</option>
+									<option value="cascadia-php">
+										Cascadia PHP
+									</option>
+									<option value="conffreaks">
+										ConfFreaks
+									</option>
+									<option value="devopsdays">
+										DevOpsDays
+									</option>
+									<option value="dinosaur-js">
+										Dinosaur JS
+									</option>
+									<option value="emberconf">
+										EmberConf
+									</option>
+									<option value="fwdays">
+										fwdays
+									</option>
+									<option value="goruco">
+										Goruco
+									</option>
+									<option value="laracon-au">
+										Laracon AU
+									</option>
+									<option value="laracon-eu">
+										Laracon EU
+									</option>
+									<option value="laracon-us">
+										Laracon US
+									</option>
+									<option value="loadays">
+										LOADays
+									</option>
+									<option value="nordic-js">
+										Nordic JS
+									</option>
+									<option value="php-srbijaphp-serbia">
+										PHP Srbija/PHP Serbia
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference
+									</option>
+									<option value="phpce">
+										phpCE
+									</option>
+									<option value="railsconf">
+										RailsConf
+									</option>
+									<option value="react-finland">
+										React Finland
+									</option>
+									<option value="reactjsday">
+										reactjsday
+									</option>
+									<option value="ruby-conf">
+										Ruby Conf
+									</option>
+									<option value="scotlandphp">
+										ScotlandPHP
+									</option>
+									<option value="sunshinephp">
+										SunshinePHP
+									</option>
+									<option value="symphonylive-usa">
+										SymphonyLive USA
+									</option>
+									<option value="uphill-conf">
+										Uphill Conf
+									</option>
+								</select>
+								<div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
+									<svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+										<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="w-full px-3 mb-6 md:w-1/4 md:mb-0">
+							<div class="relative">
+								<select class="block w-full px-4 py-3 pr-8 font-sans leading-tight text-gray-700 bg-gray-200 border border-gray-200 rounded appearance-none focus:outline-none focus:bg-white focus:border-gray-500" id="event" name="event">
+									<option selected="" value="">-- Select Event --</option>
+									<option value="con-2014">
+										!!Con 2014 - 2014, Manhattan
+									</option>
+									<option value="con-2015">
+										!!Con 2015 - 2015, New York City
+									</option>
+									<option value="con-2016">
+										!!Con 2016 - 2016, New York City
+									</option>
+									<option value="con-2017">
+										!!Con 2017 - 2017, New York City
+									</option>
+									<option value="con-2018">
+										!!Con 2018 - 2018, New York City
+									</option>
+									<option value="con-2019">
+										!!Con 2019 - 2019, New York City
+									</option>
+									<option value="net-fwdays19">
+										.NET fwdays'19 - 2019, Київ
+									</option>
+									<option value="alterconf-atlanta-ga-2015">
+										AlterConf Atlanta, GA - 2015 - 2015, Atlanta, GA
+									</option>
+									<option value="alterconf-austin-tx-2015">
+										AlterConf Austin, TX - 2015 - 2015, Austin, TX
+									</option>
+									<option value="alterconf-austin-tx-2017">
+										AlterConf Austin, TX - 2017 - 2017, Austin, TX
+									</option>
+									<option value="alterconf-berlin-germany-2017">
+										AlterConf Berlin, Germany - 2017 - 2017, Berlin, Germany
+									</option>
+									<option value="alterconf-boston-ma-2014">
+										AlterConf Boston, MA - 2014 - 2014, Boston, MA
+									</option>
+									<option value="alterconf-chicago-il-2015">
+										AlterConf Chicago, IL - 2015 - 2015, Chicago, IL
+									</option>
+									<option value="alterconf-chicago-il-2017">
+										AlterConf Chicago, IL - 2017 - 2017, Chicago, IL
+									</option>
+									<option value="alterconf-detroit-mi-2015">
+										AlterConf Detroit, MI - 2015 - 2015, Detroit, MI
+									</option>
+									<option value="alterconf-dublin-ireland-2016">
+										AlterConf Dublin, Ireland - 2016 - 2016, Dublin, Ireland
+									</option>
+									<option value="alterconf-lagos-nigeria-2017">
+										AlterConf Lagos, Nigeria - 2017 - 2017, Lagos, Nigeria
+									</option>
+									<option value="alterconf-london-england-2017">
+										AlterConf London, England - 2017 - 2017, London, England
+									</option>
+									<option value="alterconf-los-angeles-ca-2015">
+										AlterConf Los Angeles, CA - 2015 - 2015, Los Angeles, CA
+									</option>
+									<option value="alterconf-melbourne-australia-2017">
+										AlterConf Melbourne, Australia - 2017 - 2017, Melbourne, Australia
+									</option>
+									<option value="alterconf-minneapolis-mn-2016">
+										AlterConf Minneapolis, MN - 2016 - 2016, Minneapolis, MN
+									</option>
+									<option value="alterconf-new-york-city-ny-2014">
+										AlterConf New York City, NY - 2014 - 2014, New York City, NY
+									</option>
+									<option value="alterconf-new-york-city-ny-2016">
+										AlterConf New York City, NY - 2016 - 2016, New York City, NY
+									</option>
+									<option value="alterconf-new-york-city-ny-2017">
+										AlterConf New York City, NY - 2017 - 2017, New York City, NY
+									</option>
+									<option value="alterconf-paris-france-2016">
+										AlterConf Paris, France - 2016 - 2016, Paris, France
+									</option>
+									<option value="alterconf-portland-or-2015">
+										AlterConf Portland, OR - 2015 - 2015, Portland, OR
+									</option>
+									<option value="alterconf-portland-or-2016">
+										AlterConf Portland, OR - 2016 - 2016, Portland, OR
+									</option>
+									<option value="alterconf-portland-or-2017">
+										AlterConf Portland, OR - 2017 - 2017, Portland, OR
+									</option>
+									<option value="alterconf-san-francisco-ca-2016">
+										AlterConf San Francisco, CA - 2016 - 2016, San Francisco, CA
+									</option>
+									<option value="alterconf-san-francisco-ca-2017">
+										AlterConf San Francisco, CA - 2017 - 2017, San Francisco, CA
+									</option>
+									<option value="alterconf-seattle-wa-2015">
+										AlterConf Seattle, WA - 2015 - 2015, Seattle, WA
+									</option>
+									<option value="alterconf-seattle-wa-2017">
+										AlterConf Seattle, WA - 2017 - 2017, Seattle, WA
+									</option>
+									<option value="alterconf-sfoakland-ca-2015">
+										AlterConf SF/Oakland, CA - 2015 - 2015, SF/Oakland, CA
+									</option>
+									<option value="alterconf-toronto-on-2015">
+										AlterConf Toronto, ON - 2015 - 2015, Toronto, ON
+									</option>
+									<option value="alterconf-washington-dc-2016">
+										AlterConf Washington D.C. - 2016 - 2016, Washington D.C.
+									</option>
+									<option value="cascadiaphp-2018">
+										CascadiaPHP 2018 - 2018, Portland, Oregon
+									</option>
+									<option value="cascadiaphp-2019">
+										CascadiaPHP 2019 - 2019,
+									</option>
+									<option value="dinosaur-js-2016">
+										Dinosaur JS 2016 - 2016, Denver, Colorado
+									</option>
+									<option value="dinosaur-js-2017">
+										Dinosaur JS 2017 - 2017, Space Gallery, Denver, Colorado
+									</option>
+									<option value="dinosaur-js-2018">
+										Dinosaur JS 2018 - 2018, Denver, Colorado
+									</option>
+									<option value="dinosaur-js-2019">
+										Dinosaur JS 2019 - 2019, Denver, Colorado
+									</option>
+									<option value="emberconf-2014">
+										EmberConf 2014 - 2014, Portland, OR
+									</option>
+									<option value="goruco-2008">
+										Goruco 2008 - 2008, Pace Plaza, Pace University Campu, Lower Manhattan
+									</option>
+									<option value="goruco-2009">
+										Goruco 2009 - 2009, 1 Pace Plaza, Pace University Campus, Lower Manhattan
+									</option>
+									<option value="goruco-2010">
+										Goruco 2010 - 2010, 1 Pace Plaza, Pace University Campus, Lower Manhattan
+									</option>
+									<option value="goruco-2011">
+										Goruco 2011 - 2011, 1 Pace Plaza, Pace University Campus, Lower Manhattan
+									</option>
+									<option value="goruco-2012">
+										Goruco 2012 - 2012, New York
+									</option>
+									<option value="goruco-2013">
+										Goruco 2013 - 2013, New York
+									</option>
+									<option value="goruco-2014">
+										Goruco 2014 - 2014, New York
+									</option>
+									<option value="goruco-2015">
+										Goruco 2015 - 2015, New York
+									</option>
+									<option value="goruco-2016">
+										Goruco 2016 - 2016, New York
+									</option>
+									<option value="goruco-2017">
+										Goruco 2017 - 2017, New York City
+									</option>
+									<option value="goruco-2018">
+										Goruco 2018 - 2018, New York City
+									</option>
+									<option value="laracon-au">
+										Laracon AU - 2018, Sydney
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2016, Amsterdam
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2014, Amsterdam
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2018, Amsterdam
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2019, Amsterdam
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2017, Amsterdam
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2013, Amsterdam
+									</option>
+									<option value="laracon-eu">
+										Laracon EU - 2015, Amsterdam
+									</option>
+									<option value="laracon-us">
+										Laracon US - 2017, New York
+									</option>
+									<option value="laracon-us">
+										Laracon US - 2015, Louisville, Kentucky
+									</option>
+									<option value="laracon-us">
+										Laracon US - 2018, Chicago, Illinois
+									</option>
+									<option value="laracon-us">
+										Laracon US - 2016, Louisville, Kentucky
+									</option>
+									<option value="laracon-vii">
+										Laracon VII - 2019, Times Square, NYC
+									</option>
+									<option value="loadays-2014">
+										LOADays 2014 - 2014, Antwerp, Belgium
+									</option>
+									<option value="loadays-2015">
+										LOADays 2015 - 2015, Antwerp, Belgium
+									</option>
+									<option value="loadays-2018">
+										LOADays 2018 - 2018, Belgium
+									</option>
+									<option value="loadays-2019">
+										LOADays 2019 - 2019, Antwerp, Belgium
+									</option>
+									<option value="nordicjs-2014">
+										Nordic.js 2014 - 2014, Värmdö
+									</option>
+									<option value="nordicjs-2015">
+										Nordic.js 2015 - 2015, Stockholm
+									</option>
+									<option value="php-fwdays13">
+										PHP fwdays'13 - 2013, Киев
+									</option>
+									<option value="php-fwdays14">
+										PHP fwdays'14 - 2014, Киев
+									</option>
+									<option value="php-fwdays15">
+										PHP fwdays'15 - 2015, Киев
+									</option>
+									<option value="php-fwdays16">
+										PHP fwdays'16 - 2016, Киев
+									</option>
+									<option value="php-fwdays17">
+										PHP fwdays'17 - 2017, Kyiv
+									</option>
+									<option value="php-fwdays18">
+										PHP fwdays'18 - 2018, Kyiv
+									</option>
+									<option value="php-fwdays19">
+										PHP fwdays'19 - 2019, Kyiv
+									</option>
+									<option value="php-srbijaphp-serbia-2016">
+										PHP Srbija/PHP Serbia 2016 - 2016, Opera &amp; Theatre Madlenianum, Belgrade, Serbia
+									</option>
+									<option value="php-srbijaphp-serbia-2017">
+										PHP Srbija/PHP Serbia 2017 - 2017, Opera &amp; Theatre Madlenianum, Belgrade, Serbia
+									</option>
+									<option value="php-srbijaphp-serbia-2018">
+										PHP Srbija/PHP Serbia 2018 - 2018, Madlenianum Theatre, Belgrade, Serbia
+									</option>
+									<option value="php-srbijaphp-serbia-2019">
+										PHP Srbija/PHP Serbia 2019 - 2019, Madlenianum Opera &amp; Theatre, Belgrade, Serbia
+									</option>
+									<option value="php-t-dayphp-serbia-2014">
+										PHP T-Day/PHP Serbia 2014 - 2014, Belgrade, Serbia
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2008, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2006, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2015, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2014, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2010, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2019, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2009, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2013, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2018, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2016, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2012, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2007, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2017, London
+									</option>
+									<option value="php-uk-conference">
+										PHP UK Conference - 2011, London
+									</option>
+									<option value="phpce-2017">
+										phpCE 2017 - 2017, Hotel Ossa Congress &amp; Spa Rawa Mazowiecka, Poland
+									</option>
+									<option value="phpce-2018">
+										phpCE 2018 - 2018, Clarion Congress Hotel Prague Czech Republic
+									</option>
+									<option value="railsconf-2008">
+										RailsConf 2008 - 2008,
+									</option>
+									<option value="railsconf-2009">
+										RailsConf 2009 - 2009,
+									</option>
+									<option value="railsconf-2010">
+										RailsConf 2010 - 2010,
+									</option>
+									<option value="railsconf-2011">
+										RailsConf 2011 - 2011,
+									</option>
+									<option value="railsconf-2012">
+										RailsConf 2012 - 2012,
+									</option>
+									<option value="railsconf-2013">
+										RailsConf 2013 - 2013,
+									</option>
+									<option value="railsconf-2014">
+										RailsConf 2014 - 2014,
+									</option>
+									<option value="railsconf-2015">
+										RailsConf 2015 - 2015,
+									</option>
+									<option value="railsconf-2016">
+										RailsConf 2016 - 2016,
+									</option>
+									<option value="railsconf-2017">
+										RailsConf 2017 - 2017,
+									</option>
+									<option value="railsconf-2018">
+										RailsConf 2018 - 2018,
+									</option>
+									<option value="react-finland-2018">
+										React Finland 2018 - 2018,
+									</option>
+									<option value="react-finland-2019">
+										React Finland 2019 - 2019,
+									</option>
+									<option value="reactjsday-2015">
+										reactjsday 2015 - 2015,
+									</option>
+									<option value="reactjsday-2016">
+										reactjsday 2016 - 2016,
+									</option>
+									<option value="reactjsday-2017">
+										reactjsday 2017 - 2017,
+									</option>
+									<option value="reactjsday-2018">
+										reactjsday 2018 - 2018,
+									</option>
+									<option value="reactjsday-2019">
+										reactjsday 2019 - 2019,
+									</option>
+									<option value="rubyconf-2007">
+										RubyConf 2007 - 2007, Omni Charlotte Hotel in Charlotte, North Carolina, USA
+									</option>
+									<option value="rubyconf-2008">
+										RubyConf 2008 - 2008, Orlando, Florida
+									</option>
+									<option value="rubyconf-2009">
+										RubyConf 2009 - 2009, San Francisco
+									</option>
+									<option value="rubyconf-2010">
+										RubyConf 2010 - 2010, New Orleans
+									</option>
+									<option value="rubyconf-2011">
+										RubyConf 2011 - 2011, New Orleans, Louisiana
+									</option>
+									<option value="rubyconf-2012">
+										RubyConf 2012 - 2012, Denver, Colorado
+									</option>
+									<option value="rubyconf-2013">
+										RubyConf 2013 - 2013, Miami Beach
+									</option>
+									<option value="rubyconf-2014">
+										RubyConf 2014 - 2014, San DIego
+									</option>
+									<option value="rubyconf-2015">
+										RubyConf 2015 - 2015, San Antonio
+									</option>
+									<option value="rubyconf-2016">
+										RubyConf 2016 - 2016, Cincinnati
+									</option>
+									<option value="rubyconf-2017">
+										RubyConf 2017 - 2017, New Orleans
+									</option>
+									<option value="rubyconf-2018">
+										RubyConf 2018 - 2018, Los Angeles
+									</option>
+									<option value="rubyconf-2019">
+										RubyConf 2019 - 2019, Nashville
+									</option>
+									<option value="scotlandphp-2017">
+										ScotlandPHP 2017 - 2017, EICC, Edinburgh
+									</option>
+									<option value="solidayphp-serbia-2015">
+										SOLIDay/PHP Serbia 2015 - 2015, Belgrade, Serbia
+									</option>
+									<option value="sunshinephp-2013">
+										SunshinePHP 2013 - 2013,
+									</option>
+									<option value="sunshinephp-2014">
+										SunshinePHP 2014 - 2014,
+									</option>
+									<option value="sunshinephp-2015">
+										SunshinePHP 2015 - 2015,
+									</option>
+									<option value="sunshinephp-2016">
+										SunshinePHP 2016 - 2016,
+									</option>
+									<option value="sunshinephp-2017">
+										SunshinePHP 2017 - 2017,
+									</option>
+									<option value="sunshinephp-2018">
+										SunshinePHP 2018 - 2018,
+									</option>
+									<option value="sunshinephp-2019">
+										SunshinePHP 2019 - 2019,
+									</option>
+									<option value="uphill-conf-2018">
+										Uphill Conf 2018 - 2018, Bern, Switzerland
+									</option>
+								</select>
+								<div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 pointer-events-none">
+									<svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+										<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+									</svg>
+								</div>
+							</div>
+						</div>
+						<div class="w-full px-3 mb-6 md:w-1/4 md:mb-0">
+							<button class="px-4 py-2 font-bold text-white bg-gray-500 rounded shadow hover:bg-gray-400 focus:shadow-outline focus:outline-none" type="submit">
+								Search
+							</button>
+
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
 

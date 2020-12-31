@@ -1,17 +1,27 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+
+
 $route['bootstrap/index']                    = 'bootstrap/show';
 $route['bootstrap/(:any)']                   = 'bootstrap/show/$1';
 
 $route['calendar']                           = 'calendar/show';
 $route['care-requests']                      = 'care_requests/index';
+
+
+$route['customers']                          = "customers";
+$route['customers/create']                   = 'customers/create';
+$route['customers/add_view']                 = 'customers/add_student_view';
+$route['customers/edit/(\d+)']               = 'customers/update_student_view/$1';
+$route['customers/delete/(\d+)']             = 'customers/delete_student/$1';
+
 $route['dashboard']                          = 'dashboard/show';
 
 $route['episodes']                           = 'episodes/index';
-$route['episodes/(:id)']                     = 'episodes/show';
+$route['episodes/(\d+)']                     = 'episodes/show/$1';
 // $route['episodes/(:id)']['patch']            = 'episodes/update';
-$route['episodes/(:id)/edit']                = 'episodes/edit';
+// $route['episodes/(:id)/edit']                = 'episodes/edit';
 
 $route['events']                             = 'events/index';
 $route['events/(:any)']                      = 'events/show/$1';
@@ -68,9 +78,20 @@ $route['resumes/(:any)']                     = 'resumes/show/$1';
 $route['subscriptions']                      = 'subscriptions/store';
 $route['subscriptions/(:id)']['delete']      = 'subscriptions/destroy';
 
+$route['dom']                                = 'simple_dom/show';
+
+$route['test']                          = 'test/index';
+
 // $route['site/(:any)']                        = 'site/index';
-$route['default_controller']                 = 'pages/show';
-$route['(:any)']                             = 'pages/show/$1';
+
+if (strstr($_SERVER['HTTP_HOST'], 'insiders.')) {
+    $route['default_controller'] = 'admin/show';
+    $route['(:any)'] = 'admin/show/$1';
+} else {
+    $route['default_controller'] = 'pages/show';
+    $route['(:any)'] = 'pages/show/$1';
+}
+
 
 $route['404_override']                       = '';
 $route['translate_uri_dashes']               = false;

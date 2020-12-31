@@ -7,6 +7,7 @@ class Reports extends CI_Controller
     {
         $data['title'] = 'Reports';
 
+		$this->load->view('layouts/hello_bar');
         $this->load->view('layouts/header');
         $this->load->view('layouts/nav');
         $this->load->view('reports/index', $data);

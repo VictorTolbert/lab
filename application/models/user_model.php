@@ -1,83 +1,49 @@
-<?php
-
-class User_model extends CI_Model
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+class User_model extends MY_Model
 {
-    public function register($enc_password)
-    {
-        // User data array
-        $data = array(
-            'name' => $this->input->post('name'),
-            'email' => $this->input->post('email'),
-            'username' => $this->input->post('username'),
-            'password' => $enc_password,
-            'zipcode' => $this->input->post('zipcode'),
-        );
+	public function __construct()
+	{
+		$this->table = 'users';
+		$this->primary_key = 'id';
+		$this->soft_deletes = true;
+		//$this->has_one['details'] = 'User_details_model';
+		// $this->has_one['details'] = array('User_details_model','user_id','id');
+		$this->has_one['details'] = array('local_key'=>'id', 'foreign_key'=>'user_id', 'foreign_model'=>'User_details_model');
+		$this->has_many['posts'] = 'Post_model';
 
-        // Insert user
-        return $this->db->insert('users', $data);
-    }
+		parent::__construct();
+	}
 
-    // Log user in
-    public function login($username, $password)
-    {
-        // Validate
-        $this->db->where('username', $username);
-        $this->db->where('password', $password);
+	public function insert_dummy()
+	{
+		$insert_data = array(
+			array(
+				'username' => 'user1',
+				'password' => 'mypass',
+				'email' => 'user1@user.com',
+			),
+			array(
+				'username' => 'user2',
+				'password' => 'nopass',
+				'email' => 'user2@user.com',
+			),
+			array(
+				'username' => 'avenirer',
+				'password' => 'nopass',
+				'email' => 'user3@user.com',
+			),
+			array(
+				'username' => 'administrator',
+				'password' => 'mypass',
+				'email' => 'user4@user.com',
+			),
+			array(
+				'username' => 'user5',
+				'password' => 'nopass',
+				'email' => 'user5@user.com',
+			),
+		);
 
-        $result = $this->db->get('users');
-
-        if ($result->num_rows() == 1) {
-            return $result->row(0)->id;
-        } else {
-            return false;
-        }
-    }
-
-    // Check username exists
-    public function check_username_exists($username)
-    {
-        $query = $this->db->get_where('users', array('username' => $username));
-
-        if (empty($query->row_array())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // Check email exists
-    public function check_email_exists($email)
-    {
-        $query = $this->db->get_where('users', array('email' => $email));
-        if (empty($query->row_array())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function podcasts()
-    {
-        // return $this->hasMany(Podcast::class);
-    }
-
-    public function subscribed_podcasts()
-    {
-        // return $this->belongsToMany(Podcast::class, 'subscriptions')->withTimestamps();
-    }
-
-    public function subscriptions()
-    {
-        // return $this->hasMany(Subscription::class);
-    }
-
-    public function subscribes_to($podcast)
-    {
-        // return $this->subscribedPodcasts()->where($podcast->getQualifiedKeyName(), $podcast->getKey())->count() > 0;
-    }
-
-    public function subscription_to($podcast)
-    {
-        // return $this->subscriptions()->where('podcast_id', $podcast->id)->first();
-    }
+		$this->db->insert_batch($this->table, $insert_data);
+	}
 }

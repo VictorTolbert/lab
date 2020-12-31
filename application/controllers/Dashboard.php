@@ -1,8 +1,13 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller
+class Dashboard extends Auth_Controller
 {
+    public function index()
+    {
+        $this->render('dashboard/index_view');
+    }
+
     public function show()
     {
         $data['title'] = 'Dashboard';
@@ -31,7 +36,8 @@ class Dashboard extends CI_Controller
 
         // $this->load->view('layouts/dashboard_header');
         // $this->load->view('layouts/nav');
-        $this->load->view('dashboard', $data);
+		// $this->load->view('dashboard', $data);
+		$this->render('dashboard/index_view');
         // $this->load->view('layouts/footer');
     }
 }

@@ -17,7 +17,7 @@
                 <div class="px-4 mb-6 col-2">
                     <div class="hover-grow">
                         <a href="<?= base_url('podcasts/' . $podcast['id']) ?>" class="block mb-2 box-shadow">
-                            <img src="<?= $podcast['image_url'] ?>" class="img-fit">
+                            <img src="<?= $podcast['cover_path'] ?>" class="img-fit">
                         </a>
                         <p class="text-ellipsis">
                             <a href="<?= base_url('podcasts/' . $podcast['id']) ?>" class="text-sm text-medium">
@@ -26,7 +26,7 @@
                         </p>
                         <p class="text-xs text-uppercase text-spaced text-ellipsis">
                             <a href="<?= $podcast['website'] ?>" class="link-softer">
-                                <?= $podcast['website_host'] ?>
+                                <?= $podcast['website'] ?>
                             </a>
                         </p>
                     </div>

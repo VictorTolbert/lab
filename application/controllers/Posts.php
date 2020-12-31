@@ -1,146 +1,161 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Posts extends CI_Controller
+class Posts extends MY_Controller
 {
-    public function index($offset = 0)
-    {
-        // Pagination Config
-        $config['base_url'] = base_url() . 'posts/index/';
-        $config['total_rows'] = $this->db->count_all('posts');
-        $config['per_page'] = 3;
-        $config['uri_segment'] = 3;
-        $config['attributes'] = array('class' => 'pagination-link');
 
-        // Init Pagination
-        $this->pagination->initialize($config);
+	public function __construct() {
+		parent::__construct();
+		$this->load->model('post_model');
+		// $this->load->library('form_validation');
+		// $this->load->library('pagination');
+		// $this->config->load('pagination'); //So we can keep a uniform look across sections
+		// $this->load->helper('admin');
+	  }
 
-        $data['title'] = 'Latest Posts';
+	public function index($offset = 0)
+	{
+		// Pagination Config
+		$config['base_url'] = base_url() . 'posts/index/';
+		$config['total_rows'] = $this->db->count_all('posts');
+		$config['per_page'] = 3;
+		$config['uri_segment'] = 3;
+		$config['attributes'] = array('class' => 'pagination-link');
 
-        $data['posts'] = $this->post_model->get_posts(false, $config['per_page'], $offset);
+		// Init Pagination
+		$this->pagination->initialize($config);
 
-        $this->load->view('layouts/header');
-        $this->load->view('layouts/nav');
-        $this->load->view('posts/index', $data);
-        $this->load->view('layouts/footer');
-    }
+		$data['title'] = 'Latest Posts';
 
-    public function view($slug = null)
-    {
-        $data['post'] = $this->post_model->get_posts($slug);
+		// $this->load->model('post_model');
+		// $data['posts'] = $this->post_model->get_posts(false, $config['per_page'], $offset);
+		// $data['posts'] = $this->post_model->get(1);
+		$data['posts'] = $this->post_model->with_category('fields:name')->get_all();
 
-        if (empty($data['post'])) {
-            show_404();
-        }
-        $data['title'] = $data['post']['title'];
+		// d($data['posts']);
 
-        $this->load->view('layouts/header');
-        $this->load->view('layouts/nav');
-        $this->load->view('posts/view', $data);
-        $this->load->view('layouts/footer');
-    }
+		$this->load->view('layouts/header');
+		$this->load->view('layouts/nav');
+		$this->load->view('posts/index', $data);
+		$this->load->view('layouts/footer');
+	}
 
-    public function create()
-    {
-        // Check login
-        if (! $this->session->userdata('logged_in')) {
-            redirect('users/login');
-        }
+	public function view($slug = null)
+	{
+		$data['post'] = $this->post_model->get_posts($slug);
 
-        $data['title'] = 'Create Post';
+		if (empty($data['post'])) {
+			show_404();
+		}
+		$data['title'] = $data['post']['title'];
 
-        $data['categories'] = $this->post_model->get_categories();
+		$this->load->view('layouts/header');
+		$this->load->view('layouts/nav');
+		$this->load->view('posts/view', $data);
+		$this->load->view('layouts/footer');
+	}
 
-        $this->form_validation->set_rules('title', 'Title', 'required');
-        $this->form_validation->set_rules('body', 'Body', 'required');
+	public function create()
+	{
+		// Check login
+		if (! $this->session->userdata('logged_in')) {
+			redirect('users/login');
+		}
 
-        if ($this->form_validation->run() === false) {
-            $this->load->view('layouts/header');
-            $this->load->view('layouts/nav');
-            $this->load->view('posts/create', $data);
-            $this->load->view('layouts/footer');
-        } else {
-            // Upload Image
-            $config['upload_path'] = './assets/images/posts';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['max_size'] = '2048';
-            $config['max_width'] = '2000';
-            $config['max_height'] = '2000';
+		$data['title'] = 'Create Post';
 
-            $this->load->library('upload', $config);
+		$data['categories'] = $this->post_model->get_categories();
 
-            if (! $this->upload->do_upload()) {
-                $errors = array('error' => $this->upload->display_errors());
-                $post_image = 'noimage.jpg';
-            } else {
-                $data = array('upload_data' => $this->upload->data());
-                $post_image = $_FILES['userfile']['name'];
-            }
+		$this->form_validation->set_rules('title', 'Title', 'required');
+		$this->form_validation->set_rules('body', 'Body', 'required');
 
-            $this->post_model->create_post($post_image);
+		if ($this->form_validation->run() === false) {
+			$this->load->view('layouts/header');
+			$this->load->view('layouts/nav');
+			$this->load->view('posts/create', $data);
+			$this->load->view('layouts/footer');
+		} else {
+			// Upload Image
+			$config['upload_path'] = './assets/images/posts';
+			$config['allowed_types'] = 'gif|jpg|png';
+			$config['max_size'] = '2048';
+			$config['max_width'] = '2000';
+			$config['max_height'] = '2000';
 
-            // Set message
-            $this->session->set_flashdata('post_created', 'Your post has been created');
+			$this->load->library('upload', $config);
 
-            redirect('posts');
-        }
-    }
+			if (! $this->upload->do_upload()) {
+				$errors = array('error' => $this->upload->display_errors());
+				$post_image = 'noimage.jpg';
+			} else {
+				$data = array('upload_data' => $this->upload->data());
+				$post_image = $_FILES['userfile']['name'];
+			}
 
-    public function delete($id)
-    {
-        // Check login
-        if (! $this->session->userdata('logged_in')) {
-            redirect('users/login');
-        }
+			$this->post_model->create_post($post_image);
 
-        $this->post_model->delete_post($id);
+			// Set message
+			$this->session->set_flashdata('post_created', 'Your post has been created');
 
-        // Set message
-        $this->session->set_flashdata('post_deleted', 'Your post has been deleted');
+			redirect('posts');
+		}
+	}
 
-        redirect('posts');
-    }
+	public function delete($id)
+	{
+		// Check login
+		if (! $this->session->userdata('logged_in')) {
+			redirect('users/login');
+		}
 
-    public function edit($slug)
-    {
-        // Check login
-        if (! $this->session->userdata('logged_in')) {
-            redirect('users/login');
-        }
+		$this->post_model->delete_post($id);
 
-        $data['post'] = $this->post_model->get_posts($slug);
+		// Set message
+		$this->session->set_flashdata('post_deleted', 'Your post has been deleted');
 
-        // Check user
-        if ($this->session->userdata('user_id') != $this->post_model->get_posts($slug)['user_id']) {
-            redirect('posts');
-        }
+		redirect('posts');
+	}
 
-        $data['categories'] = $this->post_model->get_categories();
+	public function edit($slug)
+	{
+		// Check login
+		if (! $this->session->userdata('logged_in')) {
+			redirect('users/login');
+		}
 
-        if (empty($data['post'])) {
-            show_404();
-        }
+		$data['post'] = $this->post_model->get_posts($slug);
 
-        $data['title'] = 'Edit Post';
+		// Check user
+		if ($this->session->userdata('user_id') != $this->post_model->get_posts($slug)['user_id']) {
+			redirect('posts');
+		}
 
-        $this->load->view('layouts/header');
-        $this->load->view('layouts/nav');
-        $this->load->view('posts/edit', $data);
-        $this->load->view('layouts/footer');
-    }
+		$data['categories'] = $this->post_model->get_categories();
 
-    public function update()
-    {
-        // Check login
-        if (! $this->session->userdata('logged_in')) {
-            redirect('users/login');
-        }
+		if (empty($data['post'])) {
+			show_404();
+		}
 
-        $this->post_model->update_post();
+		$data['title'] = 'Edit Post';
 
-        // Set message
-        $this->session->set_flashdata('post_updated', 'Your post has been updated');
+		$this->load->view('layouts/header');
+		$this->load->view('layouts/nav');
+		$this->load->view('posts/edit', $data);
+		$this->load->view('layouts/footer');
+	}
 
-        redirect('posts');
-    }
+	public function update()
+	{
+		// Check login
+		if (! $this->session->userdata('logged_in')) {
+			redirect('users/login');
+		}
+
+		$this->post_model->update_post();
+
+		// Set message
+		$this->session->set_flashdata('post_updated', 'Your post has been updated');
+
+		redirect('posts');
+	}
 }

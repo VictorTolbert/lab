@@ -1,8 +1,4 @@
-<?php
-
-if (!defined('BASEPATH')) {
-    exit('No direct script access allowed');
-}
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
  * CodeIgniter
  *
@@ -25,7 +21,7 @@ class Template
     public $regions = array(
         '_scripts' => array(),
         '_styles' => array(),
-        '_meta' => array()
+        '_meta' => array(),
     );
     public $output;
     public $js = array();
@@ -105,7 +101,7 @@ class Template
      */
     public function add_template($group, $template, $activate = false)
     {
-        if (!isset($this->config[$group])) {
+        if (! isset($this->config[$group])) {
             $this->config[$group] = $template;
             if ($activate === true) {
                 $this->initialize($template);
@@ -167,12 +163,12 @@ class Template
             $this->regions = array(
                 '_scripts' => array(),
                 '_styles' => array(),
-                '_meta' => array()
+                '_meta' => array(),
             );
             foreach ($regions as $key => $region) {
                 // Regions must be arrays, but we take the burden off the template
                 // developer and insure it here
-                if (!is_array($region)) {
+                if (! is_array($region)) {
                     $this->add_region($region);
                 } else {
                     $this->add_region($key, $region);
@@ -193,11 +189,11 @@ class Template
      */
     public function add_region($name, $props = array())
     {
-        if (!is_array($props)) {
+        if (! is_array($props)) {
             $props = array();
         }
 
-        if (!isset($this->regions[$name])) {
+        if (! isset($this->regions[$name])) {
             $this->regions[$name] = $props;
         } else {
             show_error('The "' . $name . '" region has already been defined.');
@@ -398,7 +394,7 @@ class Template
         }
 
         // Add to js array if it doesn't already exist
-        if ($js != null && !in_array($js, $this->js)) {
+        if ($js != null && ! in_array($js, $this->js)) {
             $this->js[] = $js;
             $this->write('_scripts', $js);
         }
@@ -453,7 +449,7 @@ class Template
         }
 
         // Add to js array if it doesn't already exist
-        if ($css != null && !in_array($css, $this->css)) {
+        if ($css != null && ! in_array($css, $this->css)) {
             $this->css[] = $css;
             $this->write('_styles', $css);
         }
@@ -475,7 +471,7 @@ class Template
         $success = false;
         $meta = '<meta name="' . $key . '" content="' . $val . '" />';
 
-        if (!in_array($meta, $this->meta)) {
+        if (! in_array($meta, $this->meta)) {
             $this->meta[] = $meta;
             $this->write('_meta', $meta);
             $success = true;
@@ -557,7 +553,7 @@ class Template
         $output = null;
 
         // Can't build an empty region. Exit stage left
-        if (!isset($region['content']) or !count($region['content'])) {
+        if (! isset($region['content']) or ! count($region['content'])) {
             return false;
         }
 

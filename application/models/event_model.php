@@ -15,7 +15,7 @@ class Event_model extends CI_Model
 
         if ($slug === false) {
             $this->db->order_by('events.id', 'DESC');
-            $this->db->join('categories', 'categories.id = events.category_id');
+            // $this->db->join('categories', 'categories.id = events.category_id');
 
             $query = $this->db->get('events');
 

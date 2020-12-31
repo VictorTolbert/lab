@@ -39,6 +39,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
 |
 */
+
+// $autoload['packages'] = array(APPPATH.'third_party/ion_auth');
+// $autoload['packages'] = array(APPPATH . 'third_party/codeigniter-forensics');
 $autoload['packages'] = array();
 
 /*
@@ -58,7 +61,9 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('form_validation', 'session', 'pagination');
+
+// $autoload['libraries'] = [ 'session', 'database', 'ion_auth', 'encryption', 'user_audit' ];
+$autoload['libraries'] = array('form_validation', 'session', 'database', 'ion_auth', 'pagination', 'mytemplate');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +94,8 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'form', 'text', 'kint', 'menu');
+// $autoload['helper'] = [ 'url', 'date', 'form', 'site', 'views', 'security' ];
+$autoload['helper'] = array('url', 'form', 'text', 'kint', 'menu', 'site', 'state');
 
 /*
 | -------------------------------------------------------------------
@@ -103,8 +109,8 @@ $autoload['helper'] = array('url', 'form', 'text', 'kint', 'menu');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
 
+$autoload['config'] = ['video'];
 /*
 | -------------------------------------------------------------------
 |  Auto-load Language files
@@ -132,18 +138,25 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
+
+// $autoload['model'] = array(
+//     'category_model',
+//     'component_model',
+//     'comment_model',
+//     'event_model',
+//     'organization_model',
+//     'post_model',
+//     // 'property_model',
+//     'resource_model',
+//     'user_model',
+//     'person_model',
+//     'team',
+//     'episode',
+//     'podcast',
+// );
+
 $autoload['model'] = array(
-    'category_model',
-    'component_model',
-    'comment_model',
-    'event_model',
-    'organization_model',
     'post_model',
-    // 'property_model',
-    'resource_model',
-    'user_model',
-    'person_model',
-    'team',
-    'episode',
-    'podcast',
 );
+
+// $autoload['model'] = [ 'meta_model' ];

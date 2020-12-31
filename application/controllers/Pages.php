@@ -5,10 +5,28 @@ class Pages extends CI_Controller
 {
     public function show($page = 'home')
     {
+        // if (! $this->ion_auth->logged_in()) {
+        //     redirect('auth/login');
+        // }
+
+        // if (! $this->ion_auth->is_admin()) {
+        //     $this->session->set_flashdata('message', 'You must be an admin to view this page');
+        //     redirect('posts/inddex');
+        // }
+
         if (! file_exists(APPPATH . 'views/pages/' . $page . '.php')) {
             show_404();
         }
 
+		# single group (by name)
+
+        // $group = 'gangstas';
+        // if (! $this->ion_auth->in_group($group)) {
+        //     $this->session->set_flashdata('message', 'You must be a gangsta to view this page');
+        //     redirect('posts');
+        // }
+
+        // $this->load->library('ion_auth');
 
 
         // $hash = md5(implode('.', $request->only(['html', 'css', 'config', 'version'])));
@@ -27,11 +45,11 @@ class Pages extends CI_Controller
         $data['title'] = ucfirst($page);
         $data['keywords'] = $this->config->item('site_keywords');
 
-        // $this->load->view('layouts/hello_bar');
+        $this->load->view('layouts/hello_bar');
         $this->load->view('layouts/header');
-        $this->load->view('layouts/developer_toolbar');
         $this->load->view('layouts/nav');
         $this->load->view('pages/' . $page, $data);
         $this->load->view('layouts/footer');
+        $this->load->view('layouts/developer_toolbar');
     }
 }

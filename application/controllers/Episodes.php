@@ -1,6 +1,6 @@
 <?php
 
-class Episodes extends CI_Controller
+class Episodes extends MY_Controller
 {
     public function index()
     {
@@ -11,8 +11,9 @@ class Episodes extends CI_Controller
         // ]);
     }
 
-    public function show($id)
+    public function show($id = NULL)
     {
+		d($id);
         // $episode = Episode::with('podcast')->findOrFail($id);
 
         // abort_unless($episode->isVisibleTo(Auth::user()), 404);

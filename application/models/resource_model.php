@@ -15,7 +15,7 @@ class Resource_model extends CI_Model
 
         if ($slug === false) {
             $this->db->order_by('resources.id', 'DESC');
-            $this->db->join('categories', 'categories.id = resources.category_id');
+            // $this->db->join('categories', 'categories.id = resources.category_id');
 
             $query = $this->db->get('resources');
 
@@ -35,7 +35,7 @@ class Resource_model extends CI_Model
             'title' => $this->input->resource('title'),
             'slug' => $slug,
             'body' => $this->input->resource('body'),
-            'category_id' => $this->input->resource('category_id'),
+            // 'category_id' => $this->input->resource('category_id'),
             'user_id' => $this->session->userdata('user_id'),
             'resource_image' => $resource_image,
         );
@@ -65,7 +65,7 @@ class Resource_model extends CI_Model
             'title' => $this->input->resource('title'),
             'slug' => $slug,
             'body' => $this->input->resource('body'),
-            'category_id' => $this->input->resource('category_id'),
+            // 'category_id' => $this->input->resource('category_id'),
         );
 
         $this->db->where('id', $this->input->resource('id'));

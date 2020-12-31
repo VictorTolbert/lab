@@ -2,6 +2,99 @@
     exit('No direct script access allowed');
 }
 
+/**
+ *  Given a file, i.e. /css/base.css, replaces it with a string containing the
+ *  file's mtime, i.e. /css/base.1221534296.css.
+ *
+ *  @param $file  The file to be loaded.  Must be an absolute path (i.e.
+ *                starting with slash).
+ */
+if (! function_exists('auto_version')) {
+    function auto_version($file)
+    {
+        $CI     = get_instance();
+        $assets = $CI->config->item('assets_folder');
+        $assets = $assets ? $assets : 'assets';//handle weird case where config doesn't load 1st time
+        if (! file_exists($_SERVER['DOCUMENT_ROOT'] . '/' . $assets . '/' . $file)) {
+            log_message(
+                'error',
+                "Auto-version Error: file doesn't exist at " . $_SERVER['DOCUMENT_ROOT'] . '/' . $assets . '/' . $file
+            );
+            return $file;
+        }
+
+        $mtime = filemtime(
+            $_SERVER['DOCUMENT_ROOT'] . '/' . $assets . '/' . $file
+        );
+        return preg_replace('{\\.([^./]+)$}', ".$mtime.\$1", $file);
+    }
+}
+
+  if (! function_exists('styles_css_imports')) {
+      function styles_css_imports()
+      {
+          return [
+            'dashboard/pledge_progress.css',
+            'dashboard/school_progress.css',
+            'dashboard/character_countdown.css',
+        ];
+      }
+  }
+
+  /*
+   * Pledge Progress widget progress progress-bar - pledge_progress.css
+   * School Progress widget progress progress-bar - school_progress.css
+   * Today/Character Video and Icons - character_countdown.css
+   */
+  if (! function_exists('mobile_css_imports')) {
+      function mobile_css_imports()
+      {
+          return [
+            'dashboard/pledge_progress.css',
+            'dashboard/school_progress.css',
+            'dashboard/character_countdown.css',
+        ];
+      }
+  }
+
+  if (! function_exists('css_imports_as_links_for')) {
+      function css_imports_as_links_for($css_filename)
+      {
+          $css_imports_as_links = "\n    <!--  imports for " . $css_filename . " -->\n";
+
+          $css_imports = [];
+          switch ($css_filename) {
+        case Meta_model::STYLES_CSS:
+          $css_imports = styles_css_imports();
+          break;
+        case Meta_model::MOBILE_CSS:
+          $css_imports = mobile_css_imports();
+          break;
+      }
+
+          foreach ($css_imports as $css_import) {
+              $css_imports_as_links .= "    " . '<link rel="stylesheet" href="' . asset_url(auto_version('css/' . $css_import)) .'">' . "\n";
+          }
+
+          return $css_imports_as_links;
+      }
+  }
+
+  if (! function_exists('styles_css_imports_to_extra_css')) {
+      function styles_css_imports_to_extra_css(&$data)
+      {
+          foreach (styles_css_imports() as $styles_import) {
+              $data['extra_css'][] = $styles_import;
+          }
+
+          return $data;
+      }
+  }
+
+
+// ///////////////////
+
+
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
     define("DS", "\\");
 } else {
@@ -40,7 +133,7 @@ if (! function_exists('get_page_nav_link')) {
     }
 }
 
-  
+
   if (! function_exists('get_nav_active')) {
       function get_nav_active($data)
       {
@@ -62,7 +155,7 @@ if (! function_exists('get_page_nav_link')) {
                   return 'class="active"';
               }
           }
-        
+
           if (isset($data['controller']) && strlen($data['controller']) > 0) {
               $data['controller'] = str_replace('#', '', $data['controller']);
               if ($data['controller'] == $data['nav_item']) {
@@ -77,7 +170,7 @@ if (! function_exists('get_page_nav_link')) {
           }
       }
   }
- 
+
  if (! function_exists('correct_img_path')) {
      function correct_img_path($src)
      {
@@ -85,117 +178,117 @@ if (! function_exists('get_page_nav_link')) {
          $src 		= str_replace('[BASEURL]', $base, $src);
          $src 		= str_replace('[BASE_URL]', $base, $src);
          $src 		= str_replace('[BASE]', $base, $src);
-                
+
          return $src;
      }
  }
- 
- 
+
+
  if (! function_exists('simple_date_offset')) {
      function simple_date_offset($format, $time = null, $offset = null, $alt_format=null, $default_tz=null)
      {
-         $offset_name   = !empty($_SESSION['user_timezone_name']) ? $_SESSION['user_timezone_name'] : null;
-         $offset        = !empty($offset) ? $offset : $offset_name;
+         $offset_name   = ! empty($_SESSION['user_timezone_name']) ? $_SESSION['user_timezone_name'] : null;
+         $offset        = ! empty($offset) ? $offset : $offset_name;
          $r             = $time;
-         
-         if (!empty($offset) && !empty($time)) {
+
+         if (! empty($offset) && ! empty($time)) {
              date_default_timezone_set($offset);
-            
+
              if ($format == 'to_utc') {
                  $time               = date('U', strtotime(gmdate('Y-m-d H:i:s', $time)));
                  $format             = $alt_format;
              }
-            
+
              switch ($format) {
                 case 'unix':
                 case 'timestamp':
-                    
+
                     $r = date('U', $time);
-                    
+
                 break;
                 default:
-                    
+
                     $r = date($format, $time);
-                    
+
                 break;
             }
-            
-            
+
+
              date_default_timezone_set('UTC');
          }
-         
-         if (empty($offset) && !is_numeric($r) && !empty($default_tz)) {
-             $r .= ' '.$this->events_model->get_tz_abbrev($default_tz);
+
+         if (empty($offset) && ! is_numeric($r) && !empty($default_tz)) {
+             $r .= ' ' . $this->events_model->get_tz_abbrev($default_tz);
          }
 
          return $r;
      }
  }
- 
+
  if (! function_exists('date_offset')) {
      function date_offset($format, $time=null, $offset=null, $observe_dst=false, $offset_backup=null, $to_utc=false)
      {
          $dst_offset		= 0;
          $is_dst			= date('I');
          $dst_check         = null;
-         
+
          if (empty($time)) {
              $time 		= time();
          }
-         
-         if (!is_numeric($time)) {
+
+         if (! is_numeric($time)) {
              $time = strtotime($time);
          }
-         
-         if (empty($offset) && !empty($offset_backup) && empty($_SESSION['user_timezone_offset'])) {
+
+         if (empty($offset) && ! empty($offset_backup) && empty($_SESSION['user_timezone_offset'])) {
              $offset = $offset_backup;
          }
-         
+
          //dds($offset);
-         
-         if (empty($offset) && !empty($_SESSION['user_timezone_offset'])) {
+
+         if (empty($offset) && ! empty($_SESSION['user_timezone_offset'])) {
              $offset 	= $_SESSION['user_timezone_offset'];
-         
-             if (!empty($offset)) {
+
+             if (! empty($offset)) {
                  $offset 	= str_replace('GMT ', '', $offset);
-                 
+
                  if ($offset[0] == '-') {
                      $offset 	= trim($offset, '-');
                      $offset	= $offset * 3600;
-                     $offset	= '-'.$offset;
+                     $offset	= '-' . $offset;
                  } else {
                      $offset 	= trim($offset, '+');
                      $offset	= $offset * 3600;
-                     $offset	= '+'.$offset;
+                     $offset	= '+' . $offset;
                  }
              }
          }
-        
-        
 
-         if (!empty($offset) && !is_numeric($offset)) {
+
+
+         if (! empty($offset) && !is_numeric($offset)) {
              $tz_name		= $offset;
              $tz 			= new DateTimeZone($offset);
-             $test_date		= new DateTime();
+             $test_date		= new DateTime;
              $test_date->setTimestamp($time);
              $offset 		= $tz->getOffset($test_date);
-            
+
              //Check for DST compensation
              date_default_timezone_set($tz_name);
-            
+
              $dst_check		= date('I', strtotime(date('Y-m-d H:i:s', $time)));
-            
+
              date_default_timezone_set('UTC');
          }
-        
+
          if ($observe_dst) {
              if ($is_dst && $is_dst != $dst_check) {
                  $dst_offset	= -3600;
-             } elseif (!$is_dst && $is_dst != $dst_check) {
+             } elseif (! $is_dst && $is_dst != $dst_check) {
                  $dst_offset	= 3600;
              }
          }
-        
+
          //Reverse time zone offset to get us back to UTC
          if ($to_utc) {
              if (stripos($offset, '-') !== false) {
@@ -204,9 +297,9 @@ if (! function_exists('get_page_nav_link')) {
                  $offset = str_replace('+', '-', $offset);
              }
          }
-        
-        
-         if (!empty($offset)) {
+
+
+         if (! empty($offset)) {
              if (stripos($offset, '-') !== false) {
                  $offset 	= trim($offset, '-');
                  $time 		= $time - $offset + $dst_offset;
@@ -216,8 +309,8 @@ if (! function_exists('get_page_nav_link')) {
              }
          }
 
-        
-         if (empty($format) || (!empty($format) && $format == 'unix')) {
+
+         if (empty($format) || (! empty($format) && $format == 'unix')) {
              return $time;
          }
          return date($format, $time);
@@ -230,27 +323,27 @@ if (! function_exists('get_page_nav_link')) {
          return simple_date_offset('to_utc', $time, $offset, $format);
      }
  }
- 
+
  if (! function_exists('date_to_utc')) {
      function date_to_utc($format, $time=null, $offset=null, $force_localization=null)
      {
          if (empty($time)) {
              $time 		= time();
          }
-         
-         if ((empty($offset) || !empty($force_localization)) && !empty($_SESSION['user_timezone_name'])) {
+
+         if ((empty($offset) || ! empty($force_localization)) && ! empty($_SESSION['user_timezone_name'])) {
              $offset 	= $_SESSION['user_timezone_name'];
-         } elseif ((empty($offset) || !empty($force_localization)) && !empty($_SESSION['user_timezone_offset'])) {
+         } elseif ((empty($offset) || ! empty($force_localization)) && ! empty($_SESSION['user_timezone_offset'])) {
              $offset 	= $_SESSION['user_timezone_offset'];
          }
-         
-         
-         
-         if (!empty($offset)) {
+
+
+
+         if (! empty($offset)) {
              $time = date_offset(null, $time, $offset, null, null, true);
          }
-         
-         
+
+
          /*
          if(empty($offset) && !empty($_SESSION['user_timezone_offset'])){
              $offset 		= str_replace('GMT ', '', $_SESSION['user_timezone_offset']);
@@ -279,8 +372,8 @@ if (! function_exists('get_page_nav_link')) {
              }
          }
          */
-         
-         
+
+
          switch (strtolower($format)) {
              case 'unix':
              case 'seconds':
@@ -292,27 +385,27 @@ if (! function_exists('get_page_nav_link')) {
          }
      }
  }
- 
+
   if (! function_exists('format_date')) {
       function format_date($time=null, $format=null, $offset=null, $force_localization=null)
       {
           if (empty($time)) {
               $time = time();
           }
-         
-          if ((empty($offset) || !empty($force_localization)) && !empty($_SESSION['user_timezone_name'])) {
+
+          if ((empty($offset) || ! empty($force_localization)) && ! empty($_SESSION['user_timezone_name'])) {
               $offset 	= $_SESSION['user_timezone_name'];
-          } elseif ((empty($offset) || !empty($force_localization)) && !empty($_SESSION['user_timezone_offset'])) {
+          } elseif ((empty($offset) || ! empty($force_localization)) && ! empty($_SESSION['user_timezone_offset'])) {
               $offset 	= $_SESSION['user_timezone_offset'];
           }
-         
-         
-         
-          if (!empty($offset)) {
+
+
+
+          if (! empty($offset)) {
               $time = date_offset(null, $time, $offset);
           }
-         
-         
+
+
           /*
           if(!empty($offset)){
 
@@ -356,7 +449,7 @@ if (! function_exists('get_page_nav_link')) {
           }
 
           */
-         
+
           switch ($format) {
              case 'dateonly':
              case 'date_only':
@@ -395,28 +488,28 @@ if (! function_exists('get_page_nav_link')) {
           return $r;
       }
   }
- 
+
  if (! function_exists('get_img_base')) {
      function get_img_base($data=null)
      {
          return base_url().'img/';
      }
  }
- 
+
   if (! function_exists('get_css_base')) {
       function get_css_base($data=null)
       {
           return base_url().'css/';
       }
   }
-    
+
  if (! function_exists('get_site_template')) {
      function get_site_template()
      {
          return 'a';
      }
  }
- 
+
   if (! function_exists('get_img_path')) {
       function get_img_path($data=null)
       {
@@ -427,18 +520,18 @@ if (! function_exists('get_page_nav_link')) {
           }
       }
   }
- 
+
 if (! function_exists('format_phone')) {
     function format_phone($phone)
     {
         if (empty($phone)) {
             return null;
         }
-        
+
         if (!empty($_SERVER['ps_site']) && strtolower($_SERVER['ps_site'])== 'demo') {
             return 'xxx-xxx-xxxx';
         }
-        
+
         $phone = preg_replace('/\D/', '', $phone);
 
         if (strlen($phone) == 7) {
@@ -455,14 +548,14 @@ if (! function_exists('format_phone')) {
 if (! function_exists('format_email')) {
     function format_email($email)
     {
-        
+
         /*
         if(!empty($_SERVER['ps_site']) && strtolower($_SERVER['ps_site'] )== 'demo'){
 
             return 'test@foo.foo';
         }
         */
-        
+
         return strtolower(str_replace(' ', '', $email));
     }
 }
@@ -506,7 +599,7 @@ if (! function_exists('dds')) {
 if (! function_exists('get_current_url')) {
     function get_current_url()
     {
-        return $_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
+        return $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
     }
 }
 
@@ -517,7 +610,7 @@ if (! function_exists('is_local_asset')) {
         if (strpos($url, 'https://') === false && strpos($url, 'http://') === false) {
             return true;
         }
-        
+
         return false;
     }
 }
@@ -576,13 +669,13 @@ if (! function_exists('url_dec')) {
         if (empty(htmlspecialchars(base64_decode($input, true)))) {
             //return $input;
         }
-        
+
         if (is_numeric($input)) {
             return $input;
         }
-        
+
         $output 	= base64_decode(urldecode($input));
-        
+
         return $output;
     }
 }
@@ -607,7 +700,7 @@ if (! function_exists('stringify')) {
 if (! function_exists('slugify')) {
     function slugify($text)
     {
-  
+
       // replace non letter or digits by -
         $text = preg_replace('~[^\pL\d]+~u', '-', $text);
 
@@ -637,12 +730,12 @@ if (! function_exists('slugify')) {
 if (! function_exists('get_submitted_by_human_challenge')) {
     function get_submitted_by_human_challenge($input=null)
     {
-        if (!empty($input) && is_numeric($input)) {
+        if (! empty($input) && is_numeric($input)) {
             $time 	= $input;
         } else {
             $time 	= time();
         }
-            
+
         $enc 	= saltit(base64_encode($time));
         return $enc;
     }
@@ -663,11 +756,11 @@ if (! function_exists('submitted_by_human')) {
         $offset			= 5;
         $submit_time	= time();
         $cur_offset		= $submit_time - $offset;
-        
+
         $load_time 		= dec_submitted_by_human_challenge($load_time);
-        
+
         //Check to see if the offset is greater than
-        if (!empty($load_time) && is_numeric($load_time)) {
+        if (! empty($load_time) && is_numeric($load_time)) {
             if ($load_time <= $cur_offset) {
                 return true;
             }
@@ -679,14 +772,14 @@ if (! function_exists('domain_exists')) {
     function domain_exists($email)
     {
         list($user, $domain) 	= explode('@', $email);
-        
+
         if (checkdnsrr($domain, 'MX')) {
             return true;
         }
         if (checkdnsrr($domain, 'A')) {
             return true;
         }
-         
+
         return false;
     }
 }
@@ -695,10 +788,10 @@ $mx_record_really_exists = getmxrr('test.domain.org.', $mx_records_output_array)
 if (! function_exists('get_affiliate_id')) {
     function get_affiliate_id()
     {
-        if (!isset($_GET['affiliate']) && !isset($_GET['campaign'])) {
+        if (! isset($_GET['affiliate']) && ! isset($_GET['campaign'])) {
             return null;
         }
-            
+
         if (isset($_GET['campaign']) && strlen($_GET['campaign']) > 0) {
             if ($_GET['campaign'] == 'affiliatereset') {
                 $r['vhx_affiliate'] 		= null;
@@ -709,12 +802,12 @@ if (! function_exists('get_affiliate_id')) {
             if ($_GET['affiliate'] == 'affiliatereset') {
                 $r['vhx_affiliate'] 		= null;
             } else {
-                $_GET['affiliate'] 			= 'partner-'.$_GET['affiliate'];
+                $_GET['affiliate'] 			= 'partner-' . $_GET['affiliate'];
                 $r['vhx_affiliate'] 		= str_replace('partner-partner-', 'partner-', $_GET['affiliate']);
             }
         }
 
-        
+
         return $r;
     }
 }
@@ -725,7 +818,7 @@ if (! function_exists('format_affiliate_link')) {
         if (isset($link) && isset($affiliate)) {
             $link 			= strtolower($link);
             $alt_affiliate	= str_replace('partner-', '', $affiliate);
-            
+
             if (strpos($link, 'vhx.tv')) {
                 $platform 	= 'vhx';
             }
@@ -747,23 +840,23 @@ if (! function_exists('format_affiliate_link')) {
             if (strpos($link, 'youtube.com')) {
                 $platform 	= 'youtube';
             }
-            
+
             switch ($platform) {
                 case 'vhx':
-                    $append = 'campaign='.$affiliate;
+                    $append = 'campaign=' . $affiliate;
                 break;
                 default:
-                    $append = 'affiliate='.$alt_affiliate;
+                    $append = 'affiliate=' . $alt_affiliate;
                 break;
             }
-            
+
             if (strpos($link, '?')) {
-                $link .= '&'.$append;
+                $link .= '&' . $append;
             } else {
-                $link .= '?'.$append;
+                $link .= '?' . $append;
             }
         }
-        
+
         return $link;
     }
 }
@@ -772,12 +865,12 @@ if (! function_exists('is_localhost')) {
     function is_localhost()
     {
         $whitelist = array('127.0.0.1', "::1", "otto.local", "ps.localhost", "localhost");
-        if (!empty($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['HTTP_HOST'])) {
-            if (!in_array($_SERVER['REMOTE_ADDR'], $whitelist) && !in_array($_SERVER['HTTP_HOST'], $whitelist)) {
+        if (! empty($_SERVER['REMOTE_ADDR']) && ! empty($_SERVER['HTTP_HOST'])) {
+            if (! in_array($_SERVER['REMOTE_ADDR'], $whitelist) && ! in_array($_SERVER['HTTP_HOST'], $whitelist)) {
                 return false;
             }
         }
-    
+
         return true;
     }
 }
@@ -789,27 +882,27 @@ if (! function_exists('get_var')) {
         $posted	= $_POST;
         $session 	= $_SESSION;
         $val			= null;
-        
+
         if (isset($got[$var_name]) && strlen($got[$var_name]) > 0) {
             $val		= $got[$var_name];
         }
-        
-        if (!$val && isset($posted[$var_name]) && strlen($posted[$var_name]) > 0) {
+
+        if (! $val && isset($posted[$var_name]) && strlen($posted[$var_name]) > 0) {
             $val		= $posted[$var_name];
         }
-        
-        if (!$val && isset($session['vars'][$var_name]) && strlen($session['vars'][$var_name]) > 0) {
+
+        if (! $val && isset($session['vars'][$var_name]) && strlen($session['vars'][$var_name]) > 0) {
             $val		= $session['vars'][$var_name];
         }
-        
-        if (!$val && isset($default_val) && strlen($default_val) >0) {
+
+        if (! $val && isset($default_val) && strlen($default_val) > 0) {
             $val		= $default_val;
         }
-        
+
         if (isset($save_session)) {
             $_SESSION['vars'][$var_name]		= $val;
         }
-        
+
         return $val;
     }
 }
@@ -852,9 +945,9 @@ function ordinal($number)
 {
     $ends = array('th','st','nd','rd','th','th','th','th','th','th');
     if ((($number % 100) >= 11) && (($number%100) <= 13)) {
-        return $number. 'th';
+        return $number . 'th';
     } else {
-        return $number. $ends[$number % 10];
+        return $number . $ends[$number % 10];
     }
 }
 
@@ -938,31 +1031,31 @@ function depth_picker($arr, $temp_string, &$collect)
     if ($temp_string != "") {
         $collect []= $temp_string;
     }
-        
+
     //print_array($arr);
-    
+
     for ($i=0; $i<sizeof($arr);$i++) {
         $arrcopy = $arr;
         $elem = array_splice($arrcopy, $i, 1); // removes and returns the i'th element
         if (sizeof($arrcopy) > 0) {
-            depth_picker($arrcopy, $temp_string ." " . $elem[0], $collect);
+            depth_picker($arrcopy, $temp_string . " " . $elem[0], $collect);
         } else {
-            $collect []= $temp_string. " " . $elem[0];
+            $collect []= $temp_string . " " . $elem[0];
         }
     }
-    
+
     return $collect;
 }
 
 function get_relative_time($ts)
 {
-    if (!ctype_digit($ts)) {
+    if (! ctype_digit($ts)) {
         $ts 		= strtotime($ts);
     }
     $diff 	= time() - $ts;
-        
-        
-    
+
+
+
     if ($diff == 0) {
         return 'now';
     } elseif ($diff > 0) {
@@ -1000,8 +1093,8 @@ function get_relative_time($ts)
     } else {
         $diff = abs($diff);
         $day_diff = floor($diff / 86400);
-        echo '<br />'.date('w');
-        echo '<br />'.$day_diff;
+        echo '<br />' . date('w');
+        echo '<br />' . $day_diff;
         if ($day_diff == 0) {
             if ($diff < 120) {
                 return 'in a minute';
@@ -1041,14 +1134,14 @@ function convert_seconds_to_human_time($secs)
         return '0 minutes';
     }
     if ($secs > 3600) {
-        return (floor($secs / 3600)).':'.floor($secs / 60);
+        return (floor($secs / 3600)) . ':' . floor($secs / 60);
     } else {
-        return floor($secs / 60).' minutes';
+        return floor($secs / 60) . ' minutes';
     }
-    
+
     return 0;
 }
-    
+
 
 if (! function_exists('format_name')) {
     function format_name($string)
@@ -1065,7 +1158,7 @@ if (! function_exists('format_name')) {
                 if (in_array(strtoupper($word), $uppercase_exceptions)) {
                     $word = strtoupper($word);
                 } else {
-                    if (!in_array($word, $lowercase_exceptions)) {
+                    if (! in_array($word, $lowercase_exceptions)) {
                     }
                     $word = ucfirst($word);
                 }
@@ -1076,15 +1169,15 @@ if (! function_exists('format_name')) {
             if (in_array(strtolower($delimiter), $lowercase_exceptions)) {
                 $delimiter = strtolower($delimiter);
             }
-            
+
 
             $string = join($delimiter, $newwords);
-        
+
             $string = str_replace('"', '”', $string);
             $string = str_replace("'", "’", $string);
         }
-    
-    
+
+
         return trim($string);
     }
 }
@@ -1115,7 +1208,7 @@ if (! function_exists('format_name_alt')) {
                 // O'brien -> O'Brien || mary-kaye -> Mary-Kaye
                 $part = str_replace('- ', '-', ucwords(str_replace('-', '- ', $part)));
                 $c13n[] = str_replace('\' ', '\'', ucwords(str_replace('\'', '\' ', $part)));
-            } elseif ($part == $first_part && !in_array($part, $always_lower)) {
+            } elseif ($part == $first_part && ! in_array($part, $always_lower)) {
                 // If the first part of the string is ok_to_be_lower, cap it anyway
                 $c13n[] = ucfirst($part);
             } else {
@@ -1184,20 +1277,20 @@ function does_file_exist($url)
     $url_parts	= explode('/', $url);
     $path		= null;
     $file		= null;
-    if (!empty($url_parts[1])) {
+    if (! empty($url_parts[1])) {
         for ($i=1; $i < count($url_parts); $i++) {
-            $path .= DS.$url_parts[$i];
+            $path .= DS . $url_parts[$i];
         }
         $path = rtrim($path, '/');
 
-        if (!empty($path)) {
-            $file	= FCPATH.$path;
+        if (! empty($path)) {
+            $file	= FCPATH . $path;
             if (is_file($file)) {
                 return true;
             }
         }
     }
-    
+
     return false;
 }
 
@@ -1209,19 +1302,19 @@ function hash_challenge($val)
 
 function get_subdomain()
 {
-    if (!empty($_SERVER['HTTP_HOST'])) {
+    if (! empty($_SERVER['HTTP_HOST'])) {
         $url_host		= $_SERVER['HTTP_HOST'];
         $arr_host		= explode('.', $url_host);
         $subdomain 		= $arr_host[0];
         return $subdomain;
     }
-    
+
     return '';
 }
 
 function word_combos($words)
 {
-    if (!is_array($words)) {
+    if (! is_array($words)) {
         $words = explode(' ', $words);
     }
     if (count($words) <= 1) {
@@ -1253,76 +1346,76 @@ if (is_localhost()) {
     }
 }
 
-//Set localhost override session
-if (!function_exists('get_unix_time')) {
+// Set localhost override session
+if (! function_exists('get_unix_time')) {
     function get_unix_time($date)
     {
         if (is_numeric($date)) {
             return $date;
         }
-        
+
         return strtotime($date);
     }
 }
 
-if (!function_exists('get_req')) {
+if (! function_exists('get_req')) {
     function get_req($key, $default=null)
     {
         $posted = $_POST;
         $got	= $_GET;
-        
+
         if (isset($got[$key])) {
             return $got[$key];
         }
         if (isset($posted[$key])) {
             return $posted[$key];
         }
-        
+
         if (isset($default)) {
             return $default;
         }
-        
+
         return null;
     }
 }
 
-if (!function_exists('get_req_dec')) {
+if (! function_exists('get_req_dec')) {
     function get_req_dec($key, $default=null)
     {
         $posted = $_POST;
         $got	= $_GET;
-        
+
         if (isset($got[$key])) {
             return url_dec($got[$key]);
         }
         if (isset($posted[$key])) {
             return url_dec($posted[$key]);
         }
-        
+
         if (isset($default)) {
             return $default;
         }
-        
+
         return null;
     }
 }
 
-if (!function_exists('format_array_vals')) {
+if (! function_exists('format_array_vals')) {
     function format_array_vals($vars, $id_key)
     {
-        if (!empty($vars) && !is_array($vars)) {
+        if (! empty($vars) && !is_array($vars)) {
             $new 			= $vars;
             unset($vars);
             $vars 			= array();
             $vars[$id_key]	= $new;
             unset($new);
         }
-        
+
         return $vars;
     }
 }
 
-if (!function_exists('convert_time_to_seconds')) {
+if (! function_exists('convert_time_to_seconds')) {
     function convert_time_to_seconds($time)
     {
         if (stripos($time, ':') !== false) {
@@ -1331,36 +1424,37 @@ if (!function_exists('convert_time_to_seconds')) {
         }
         if (stripos($time, '.') !== false) {
             $arr_time	= explode('.', $time);
-            $offset_min	= '0.'.numeric_only($arr_time[1]);
+            $offset_min	= '0.' . numeric_only($arr_time[1]);
             $time	= ((numeric_only($arr_time[0]) * 3600) + floor(3600 * $offset_min));
         }
         return $time;
     }
 }
-if (!function_exists('get_week_of_month')) {
+
+if (! function_exists('get_week_of_month')) {
     function get_week_of_month($date)
     {
-        
+
         //Get the first day of the month.
         $firstOfMonth = strtotime(date("Y-m-01", $date));
-        
+
         //Apply above formula.
         $output = intval(strftime("%U", $date)) - intval(strftime("%U", $firstOfMonth)) + 1;
         return $output;
     }
 }
 
-if (!function_exists('get_day_iteration_of_month')) {
+if (! function_exists('get_day_iteration_of_month')) {
     function get_day_iteration_of_month($date)
     {
         $dotw		= date('N', $date);
         $dotw_count	= 0;
-        
+
         //Get the first day of the month.
         $date_start		= strtotime(date("Y-m-01", $date));
         $date_end		= strtotime('+1 Month', $date_start);
-        
-        
+
+
         for ($i = $date_start; $i < $date_end; $i = strtotime('+1 day', $i)) {
             if (date('N', $i) == $dotw) {
                 $dotw_count++;
@@ -1372,31 +1466,31 @@ if (!function_exists('get_day_iteration_of_month')) {
     }
 }
 
-if (!function_exists('is_ajax_post')) {
+if (! function_exists('is_ajax_post')) {
     function is_ajax_post()
     {
-        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+        if (! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
             return true;
         }
         return false;
     }
 }
 
-if (!function_exists('get_limiter_session_value')) {
+if (! function_exists('get_limiter_session_value')) {
     function get_limiter_session_value($name)
     {
-        if (!empty(get_req('clear_limiters'))) {
+        if (! empty(get_req('clear_limiters'))) {
             return null;
         }
         if (isset($_SESSION['view_limiter'][$name])) {
             return $_SESSION['view_limiter'][$name];
         }
-        
+
         return null;
     }
 }
 
-if (!function_exists('is_from_cli')) {
+if (! function_exists('is_from_cli')) {
     function is_from_cli()
     {
         if (isset($_SERVER["SHELL"])) {
@@ -1409,10 +1503,10 @@ if (!function_exists('is_from_cli')) {
     }
 }
 
-if (!function_exists('is_demo_site')) {
+if (! function_exists('is_demo_site')) {
     function is_demo_site()
     {
-        if (!empty($_SERVER['ps_site'])) {
+        if (! empty($_SERVER['ps_site'])) {
             switch (strtolower($_SERVER['ps_site'])) {
             case 'demo':
                 return true;
@@ -1422,10 +1516,11 @@ if (!function_exists('is_demo_site')) {
         return false;
     }
 }
-if (!function_exists('relative_time')) {
+
+if (! function_exists('relative_time')) {
     function relative_time($ts)
     {
-        if (!ctype_digit($ts)) {
+        if (! ctype_digit($ts)) {
             $ts = strtotime($ts);
         }
         $diff = time() - $ts;
@@ -1500,7 +1595,7 @@ if (!function_exists('relative_time')) {
     }
 }
 
-if (!function_exists('get_users_web_browser')) {
+if (! function_exists('get_users_web_browser')) {
     function get_users_web_browser()
     {
         $u_agent = $_SERVER['HTTP_USER_AGENT'];
@@ -1518,7 +1613,7 @@ if (!function_exists('get_users_web_browser')) {
         }
 
         // Next get the name of the useragent yes seperately and for good reason
-        if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
+        if (preg_match('/MSIE/i', $u_agent) && ! preg_match('/Opera/i', $u_agent)) {
             $bname = 'Internet Explorer';
             $ub = "MSIE";
         } elseif (preg_match('/Firefox/i', $u_agent)) {
@@ -1527,10 +1622,10 @@ if (!function_exists('get_users_web_browser')) {
         } elseif (preg_match('/OPR/i', $u_agent)) {
             $bname = 'Opera';
             $ub = "Opera";
-        } elseif (preg_match('/Chrome/i', $u_agent) && !preg_match('/Edge/i', $u_agent)) {
+        } elseif (preg_match('/Chrome/i', $u_agent) && ! preg_match('/Edge/i', $u_agent)) {
             $bname = 'Google Chrome';
             $ub = "Chrome";
-        } elseif (preg_match('/Safari/i', $u_agent) && !preg_match('/Edge/i', $u_agent)) {
+        } elseif (preg_match('/Safari/i', $u_agent) && ! preg_match('/Edge/i', $u_agent)) {
             $bname = 'Apple Safari';
             $ub = "Safari";
         } elseif (preg_match('/Netscape/i', $u_agent)) {
@@ -1546,9 +1641,8 @@ if (!function_exists('get_users_web_browser')) {
 
         // finally get the correct version number
         $known = array('Version', $ub, 'other');
-        $pattern = '#(?<browser>' . join('|', $known) .
-')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
-        if (!preg_match_all($pattern, $u_agent, $matches)) {
+        $pattern = '#(?<browser>' . join('|', $known) . ')[/ ]+(?<version>[0-9.|a-zA-Z.]*)#';
+        if (! preg_match_all($pattern, $u_agent, $matches)) {
             // we have no matching number just continue
         }
         // see how many we have
@@ -1575,12 +1669,12 @@ if (!function_exists('get_users_web_browser')) {
     'name'      => $bname,
     'version'   => $version,
     'platform'  => $platform,
-    'pattern'    => $pattern
+    'pattern'    => $pattern,
   );
     }
 }
 
-if (!function_exists('get_remote_file_size')) {
+if (! function_exists('get_remote_file_size')) {
     function get_remote_file_size($url)
     {
         $ch = curl_init($url);
@@ -1598,24 +1692,24 @@ if (!function_exists('get_remote_file_size')) {
     }
 }
 
-if (!function_exists('high_res_time')) {
+if (! function_exists('high_res_time')) {
     function high_res_time()
     {
         $time = microtime(true);
         return $time;
         $arr_time = explode(' ', $time);
-        
+
         return (int) $arr_time[1] + $arr_time[0];
     }
 }
 
-if (!function_exists('possesify')) {
+if (! function_exists('possesify')) {
     function possesify($name)
     {
         if (strtolower(substr($name, -1)) == 's') {
-            return $name."'";
+            return $name . "'";
         } else {
-            return $name."'s";
+            return $name . "'s";
         }
     }
 }
@@ -1625,7 +1719,7 @@ if (! function_exists('ellipsify')) {
         if (strlen($text) > $length) {
             $text = substr($text, 0, $length) . '...';
         }
-        
+
         return $text;
     }
 }

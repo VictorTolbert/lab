@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-class Podcast_episodes extends CI_Controller
+class Podcast_episodes extends MY_Controller
 {
     public function index($id = null)
     {
