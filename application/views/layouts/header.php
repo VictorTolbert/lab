@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="https://unpkg.com/@tailwindcss/typography@0.2.x/dist/typography.min.css">
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Work+Sans:wght@700&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo base_url('assets/css/application.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('assets/css/application.css') ?>">
 
 	<link href="<?= base_url('assets/css/tailwind.css') ?>" rel="stylesheet">
 	<style>
@@ -48,6 +48,7 @@
 
 	<!-- Litepicker -->
 	<link src="https://cdn.jsdelivr.net/npm/litepicker/dist/css/style.css">
+
 	<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 	<!-- FIX Only load this script on pages requiring the WYSIWYG edtior -->

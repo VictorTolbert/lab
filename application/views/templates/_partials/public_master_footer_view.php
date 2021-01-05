@@ -1,13 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');?>
-</div>
-<footer>
-	<div class="container">
-		<p class="footer">
-			Page rendered in <strong>{elapsed_time}</strong> seconds.
-			<?=  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?>
-		</p>
-	</div>
-</footer>
 
 <script src="<?php echo site_url('assets/js/bootstrap.min.js');?>"></script>
 

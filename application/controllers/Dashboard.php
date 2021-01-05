@@ -36,8 +36,8 @@ class Dashboard extends Auth_Controller
 
         // $this->load->view('layouts/dashboard_header');
         // $this->load->view('layouts/nav');
-		// $this->load->view('dashboard', $data);
-		$this->render('dashboard/index_view');
+        // $this->load->view('dashboard', $data);
+        $this->render('dashboard/index_view');
         // $this->load->view('layouts/footer');
     }
 }

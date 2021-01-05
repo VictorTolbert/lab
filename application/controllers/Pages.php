@@ -18,7 +18,7 @@ class Pages extends CI_Controller
             show_404();
         }
 
-		# single group (by name)
+        # single group (by name)
 
         // $group = 'gangstas';
         // if (! $this->ion_auth->in_group($group)) {
@@ -51,5 +51,32 @@ class Pages extends CI_Controller
         $this->load->view('pages/' . $page, $data);
         $this->load->view('layouts/footer');
         $this->load->view('layouts/developer_toolbar');
+    }
+
+    public function upload_class_file()
+    {
+        $this->load->config('aws', true);
+        $this->load->library('upload');
+        $this->load->library('CSV');
+
+        $s3_class_list_loc = $this->config->item('s3_class_lists', 'aws');
+
+        $this->upload->set_allowed_types('csv');
+
+        $programId = !empty($_POST['program_id']) ? $_POST['program_id'] : null;
+        $groupId   = !empty($_POST['group_id']) ? $_POST['group_id'] : null;
+
+        if ($this->upload->do_upload_s3('userfile', $s3_class_list_loc)) {
+            $fileInfo           = $this->upload->data();
+            $class_endpoint     = s3_url($s3_class_list_loc . $this->upload->data('file_name'));
+            $importData         = $this->csv->process_csv($class_endpoint);
+            $data['fileInfo']   = $fileInfo;
+            $data['importData'] = $importData;
+            $data['status']     = 'success';
+        } else {
+            $data['status'] = 'failed';
+        }
+
+        echo json_encode($data);
     }
 }

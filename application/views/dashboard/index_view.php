@@ -1,7 +1,3 @@
-<?php defined('BASEPATH') or exit('No direct script access allowed') ?>
-
-<?= '<img src="//www.gravatar.com/avatar/' . $_SESSION['gravatar'] . '?s=200" /><br />' ?>
-
-<div class="container">
+<div class="p-16">
 	Hello from dashboard...
 </div>

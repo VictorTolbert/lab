@@ -38,6 +38,7 @@ class User extends MY_Controller
             $remember = (bool) $this->input->post('remember');
             $username = $this->input->post('username');
             $password = $this->input->post('password');
+
             $this->ion_auth->set_hook('post_login_successful', 'get_gravatar_hash', $this, '_gravatar', array());
 
             $remember = (bool) $this->input->post('remember');

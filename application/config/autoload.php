@@ -63,7 +63,7 @@ $autoload['packages'] = array();
 */
 
 // $autoload['libraries'] = [ 'session', 'database', 'ion_auth', 'encryption', 'user_audit' ];
-$autoload['libraries'] = array('form_validation', 'session', 'database', 'ion_auth', 'pagination', 'mytemplate');
+$autoload['libraries'] = array('form_validation', 'session', 'database', 'ion_auth', 'pagination', 'my_template');
 
 /*
 | -------------------------------------------------------------------
@@ -95,7 +95,7 @@ $autoload['drivers'] = array();
 |	$autoload['helper'] = array('url', 'file');
 */
 // $autoload['helper'] = [ 'url', 'date', 'form', 'site', 'views', 'security' ];
-$autoload['helper'] = array('url', 'form', 'text', 'kint', 'menu', 'site', 'state');
+$autoload['helper'] = array('url', 'form', 'text', 'kint', 'menu', 'site', 'state', 'html');
 
 /*
 | -------------------------------------------------------------------
@@ -139,24 +139,24 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 
-// $autoload['model'] = array(
-//     'category_model',
-//     'component_model',
-//     'comment_model',
-//     'event_model',
-//     'organization_model',
-//     'post_model',
-//     // 'property_model',
-//     'resource_model',
-//     'user_model',
-//     'person_model',
-//     'team',
-//     'episode',
-//     'podcast',
-// );
-
 $autoload['model'] = array(
+    'category_model',
+    'component_model',
+    'comment_model',
+    'event_model',
+    'organization_model',
     'post_model',
+    'property_model',
+    'resource_model',
+    'user_model',
+    'person_model',
+    'team',
+    'episode',
+    'podcast',
 );
+
+// $autoload['model'] = array(
+//     'post_model',
+// );
 
 // $autoload['model'] = [ 'meta_model' ];

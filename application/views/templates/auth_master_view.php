@@ -2,6 +2,8 @@
 
 $this->load->view('templates/_partials/auth_master_header_view'); ?>
 
-<?= $the_view_content ?>
+<main class="flex-1">
+	<?= $the_view_content ?>
+</main>
 
 <?php $this->load->view('templates/_partials/auth_master_footer_view'); ?>
